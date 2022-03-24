@@ -37,7 +37,7 @@ public class BaseUI {
         System.out.print("To (enter code) >> ");
         String toCurrencyCode = scannerStr.nextLine();
         System.out.print("Amount >> ");
-        BigDecimal amount = scanner.nextBigDecimal();
+        String amount = scannerStr.nextLine();
 
         System.out.println(SERVICE.exchange(amount, fromCurrencyCode, toCurrencyCode));
 

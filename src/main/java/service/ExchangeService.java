@@ -4,6 +4,7 @@ import dao.ExchangeDAO;
 import entity.Currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,25 +19,24 @@ public class ExchangeService {
         return DAO.getCurrencyList();
     }
 
-    public BigDecimal exchange(BigDecimal amount, String fromCurrencyCode, String toCurrencyCode) {
+    public BigDecimal exchange(String amount, String fromCurrencyCode, String toCurrencyCode) {
 
         Currency fromCurrency = getCurrency(fromCurrencyCode);
         Currency toCurrency = getCurrency(toCurrencyCode);
 
         return new BigDecimal(fromCurrency.getRate())
-                .divide(new BigDecimal(toCurrency.getRate()), 2)
-                .multiply(amount);
+                .multiply(new BigDecimal(amount))
+                .divide(new BigDecimal(toCurrency.getRate()), 2, RoundingMode.HALF_UP);
     }
 
     public Currency getCurrency(String currencyCode) {
 
         List<Currency> currencies = getAllCurrency();
 
-        Currency fromCurrency = currencies.stream()
+        return currencies.stream()
                 .filter(currency -> currencyCode.equals(currency.getCode()))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Not Found"));
-        return fromCurrency;
 
     }
 
