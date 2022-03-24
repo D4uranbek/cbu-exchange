@@ -54,7 +54,7 @@ public class BaseUI {
         List<CcyNtry> currencies = SERVICE.getAllCurrency();
 
         for (CcyNtry currency : currencies) {
-            System.out.println(currency.getID() + " \t " + currency.getCcyNm_EN() + " || " + currency.getCcy());
+            System.out.println(currency.ID + " \t " + currency.CcyNm_EN + " || " + currency.Ccy);
         }
     }
 

@@ -14,7 +14,16 @@ import java.util.Objects;
 public class ExchangeService {
 
     private static final ExchangeDAO DAO = ExchangeDAO.getInstance();
+    private static ExchangeService instance;
 
+    public static ExchangeService getInstance() {
+
+        if (Objects.isNull(instance)) {
+            instance = new ExchangeService();
+        }
+        return instance;
+
+    }
 
     public List<CcyNtry> getAllCurrency() {
         return DAO.getCurrencyList();
@@ -25,9 +34,9 @@ public class ExchangeService {
         CcyNtry fromCurrency = getCurrency(fromCurrencyCode);
         CcyNtry toCurrency = getCurrency(toCurrencyCode);
 
-        return new BigDecimal(fromCurrency.getRate())
+        return new BigDecimal(fromCurrency.Rate)
                 .multiply(new BigDecimal(amount))
-                .divide(new BigDecimal(toCurrency.getRate()), 2, RoundingMode.HALF_UP);
+                .divide(new BigDecimal(toCurrency.Rate), 2, RoundingMode.HALF_UP);
     }
 
     public CcyNtry getCurrency(String currencyCode) {
@@ -35,20 +44,9 @@ public class ExchangeService {
         List<CcyNtry> currencies = getAllCurrency();
 
         return currencies.stream()
-                .filter(currency -> currencyCode.equals(currency.getID()))
+                .filter(currency -> currencyCode.equals(currency.ID))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Not Found"));
-
-    }
-
-    private static ExchangeService instance;
-
-    public static ExchangeService getInstance() {
-
-        if (Objects.isNull(instance)) {
-            instance = new ExchangeService();
-        }
-        return instance;
 
     }
 }
