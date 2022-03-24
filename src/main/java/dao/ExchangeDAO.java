@@ -39,6 +39,7 @@ public class ExchangeDAO {
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
+
             Document document = builder.parse(url.openStream());
             document.getDocumentElement().normalize();
 
