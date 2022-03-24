@@ -1,9 +1,8 @@
 package ui;
 
-import entity.Currency;
+import entity.CcyNtry;
 import service.ExchangeService;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -52,10 +51,10 @@ public class BaseUI {
     }
 
     public void showAllCurrency() {
-        List<Currency> currencies = SERVICE.getAllCurrency();
+        List<CcyNtry> currencies = SERVICE.getAllCurrency();
 
-        for (Currency currency : currencies) {
-            System.out.println(currency.getCode() + " \t " + currency.getCcyNmEN() + " || " + currency.getCcy());
+        for (CcyNtry currency : currencies) {
+            System.out.println(currency.getID() + " \t " + currency.getCcyNm_EN() + " || " + currency.getCcy());
         }
     }
 

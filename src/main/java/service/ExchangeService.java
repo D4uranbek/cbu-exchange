@@ -1,7 +1,7 @@
 package service;
 
 import dao.ExchangeDAO;
-import entity.Currency;
+import entity.CcyNtry;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,26 +15,27 @@ public class ExchangeService {
 
     private static final ExchangeDAO DAO = ExchangeDAO.getInstance();
 
-    public List<Currency> getAllCurrency() {
+
+    public List<CcyNtry> getAllCurrency() {
         return DAO.getCurrencyList();
     }
 
     public BigDecimal exchange(String amount, String fromCurrencyCode, String toCurrencyCode) {
 
-        Currency fromCurrency = getCurrency(fromCurrencyCode);
-        Currency toCurrency = getCurrency(toCurrencyCode);
+        CcyNtry fromCurrency = getCurrency(fromCurrencyCode);
+        CcyNtry toCurrency = getCurrency(toCurrencyCode);
 
         return new BigDecimal(fromCurrency.getRate())
                 .multiply(new BigDecimal(amount))
                 .divide(new BigDecimal(toCurrency.getRate()), 2, RoundingMode.HALF_UP);
     }
 
-    public Currency getCurrency(String currencyCode) {
+    public CcyNtry getCurrency(String currencyCode) {
 
-        List<Currency> currencies = getAllCurrency();
+        List<CcyNtry> currencies = getAllCurrency();
 
         return currencies.stream()
-                .filter(currency -> currencyCode.equals(currency.getCode()))
+                .filter(currency -> currencyCode.equals(currency.getID()))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Not Found"));
 
