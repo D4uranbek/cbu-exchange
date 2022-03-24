@@ -1,6 +1,6 @@
 package ui;
 
-import entity.CcyNtry;
+import entity.Currency;
 import service.ExchangeService;
 
 import java.util.List;
@@ -51,10 +51,10 @@ public class BaseUI {
     }
 
     public void showAllCurrency() {
-        List<CcyNtry> currencies = SERVICE.getAllCurrency();
+        List<Currency> currencies = SERVICE.getAllCurrency();
 
-        for (CcyNtry currency : currencies) {
-            System.out.println(currency.ID + " \t " + currency.CcyNm_EN + " || " + currency.Ccy);
+        for (Currency currency : currencies) {
+            System.out.println(currency.getId() + " \t " + currency.getCcyNmEN() + " || " + currency.getCcy());
         }
     }
 
