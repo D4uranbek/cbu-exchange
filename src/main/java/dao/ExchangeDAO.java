@@ -58,7 +58,7 @@ public class ExchangeDAO {
 
         try {
 
-            for (int i = 0; i > -5; i--) {
+            for (int i = 0; i > -10; i--) {
                 String date = LocalDate.now().plusDays(i).toString();
                 String urlString = MessageFormat.format("https://cbu.uz/uz/arkhiv-kursov-valyut/json/{0}/{1}/", ccy, date);
                 URL url = new URL(urlString);

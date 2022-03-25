@@ -67,7 +67,7 @@ public class BaseUI {
         List<CurrencyDateRateDTO> lastFiveDayList = SERVICE.lastFiveDayByCode(code);
 
         lastFiveDayList.forEach(dto -> {
-            System.out.println(MessageFormat.format("{0} \t {1}", dto.getDate(), dto.getRate()));
+            System.out.println(MessageFormat.format("{0} \t {1} \t {2}", dto.getNameEn(), dto.getDate(), dto.getRate()));
         });
     }
 }
