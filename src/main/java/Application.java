@@ -12,7 +12,7 @@ public class Application {
     private static void run() {
 
         BaseUI baseUI = BaseUI.getInstance();
-        baseUI.exchange();
+        baseUI.lastFiveDay();
 
     }
 }

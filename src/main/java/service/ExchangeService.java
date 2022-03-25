@@ -1,6 +1,7 @@
 package service;
 
 import dao.ExchangeDAO;
+import dto.CurrencyDateRateDTO;
 import entity.Currency;
 
 import java.math.BigDecimal;
@@ -40,6 +41,17 @@ public class ExchangeService {
 
     }
 
+    public String getCurrencyCcy(String currencyCode) {
+
+        List<Currency> currencies = getAllCurrency();
+
+        return currencies.stream()
+                .filter(currency -> currencyCode.equals(currency.getCode()))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Not Found")).getCcy();
+
+    }
+
     private static ExchangeService instance;
 
     public static ExchangeService getInstance() {
@@ -49,5 +61,12 @@ public class ExchangeService {
         }
         return instance;
 
+    }
+
+
+    public List<CurrencyDateRateDTO> lastFiveDayByCode(String code) {
+        String ccy = getCurrencyCcy(code);
+
+        return DAO.lastFiveDayByCcy(ccy);
     }
 }
