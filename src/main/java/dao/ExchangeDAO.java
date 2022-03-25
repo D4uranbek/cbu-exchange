@@ -59,8 +59,9 @@ public class ExchangeDAO {
         try {
 
             for (int i = 0; i > -10; i--) {
-                String date = LocalDate.now().plusDays(i).toString();
-                String urlString = MessageFormat.format("https://cbu.uz/uz/arkhiv-kursov-valyut/json/{0}/{1}/", ccy, date);
+                LocalDate date = LocalDate.now().plusDays(i);
+                String dateString = date.toString();
+                String urlString = MessageFormat.format("https://cbu.uz/uz/arkhiv-kursov-valyut/json/{0}/{1}/", ccy, dateString);
                 URL url = new URL(urlString);
 
                 InputStreamReader reader = new InputStreamReader(url.openStream());
@@ -68,6 +69,12 @@ public class ExchangeDAO {
                 }.getType();
 
                 List<Currency> currency = new GsonBuilder().create().fromJson(reader, currencyListType);
+                Currency currency1 = currency.get(0);
+
+                if (!isThereDuplicateDate(dtoList, currency1.getDate())) {
+                    continue;
+                }
+
                 CurrencyDateRateDTO dto = MAPPER.toCurrencyDateRateDTO(currency.get(0));
                 dtoList.add(dto);
             }
@@ -77,6 +84,10 @@ public class ExchangeDAO {
         }
 
         return dtoList;
+    }
+
+    private boolean isThereDuplicateDate(List<CurrencyDateRateDTO> dtoList, String date) {
+        return dtoList.stream().noneMatch(dto -> dto.getDate().equals(date));
     }
 
 
