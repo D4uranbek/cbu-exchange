@@ -39,16 +39,20 @@ public class CurrencyMapper {
         return Currency.builder()
                 .id(currencyElement.getAttribute("ID"))
 
-                .ccy(currencyElement.getElementsByTagName("Ccy").item(0).getTextContent())
-                .ccyMnrUnts(currencyElement.getElementsByTagName("CcyMnrUnts").item(0).getTextContent())
-                .ccyNmEN(currencyElement.getElementsByTagName("CcyNm_EN").item(0).getTextContent())
-                .ccyNmRU(currencyElement.getElementsByTagName("CcyNm_RU").item(0).getTextContent())
-                .ccyNmUZ(currencyElement.getElementsByTagName("CcyNm_UZ").item(0).getTextContent())
-                .ccyNmUZC(currencyElement.getElementsByTagName("CcyNm_UZC").item(0).getTextContent())
-                .nominal(currencyElement.getElementsByTagName("Nominal").item(0).getTextContent())
-                .rate(currencyElement.getElementsByTagName("Rate").item(0).getTextContent())
-                .date(currencyElement.getElementsByTagName("date").item(0).getTextContent())
+                .ccy(getField(currencyElement, "Ccy"))
+                .ccyMnrUnts(getField(currencyElement, "CcyMnrUnts"))
+                .ccyNmEN(getField(currencyElement, "CcyNm_EN"))
+                .ccyNmRU(getField(currencyElement, "CcyNm_RU"))
+                .ccyNmUZ(getField(currencyElement, "CcyNm_UZ"))
+                .ccyNmUZC(getField(currencyElement, "CcyNm_UZC"))
+                .nominal(getField(currencyElement, "Nominal"))
+                .rate(getField(currencyElement, "Rate"))
+                .date(getField(currencyElement, "date"))
 
                 .build();
+    }
+
+    private String getField(Element currencyElement, String fieldName) {
+        return currencyElement.getElementsByTagName(fieldName).item(0).getTextContent();
     }
 }
