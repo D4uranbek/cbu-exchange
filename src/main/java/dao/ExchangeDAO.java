@@ -37,7 +37,18 @@ public class ExchangeDAO {
             Type currencyListType = new TypeToken<List<Currency>>() {
             }.getType();
 
-            return new GsonBuilder().create().fromJson(reader, currencyListType);
+            List<Currency> currencies = new GsonBuilder().create().fromJson(reader, currencyListType);
+
+            Currency uzs = Currency.builder()
+                    .code("001")
+                    .ccy("UZS")
+                    .ccyNmEN("Uzbek som")
+                    .rate("1")
+                    .build();
+
+            currencies.add(uzs);
+
+            return currencies;
 
         } catch (IOException e) {
             e.printStackTrace();
